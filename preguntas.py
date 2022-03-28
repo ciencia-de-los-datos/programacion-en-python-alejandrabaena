@@ -8,20 +8,23 @@ No puede utilizar pandas, numpy o scipy. Se debe utilizar solo las funciones de 
 básicas.
 
 Utilice el archivo `data.csv` para resolver las preguntas.
-
-
 """
 
-
 def pregunta_01():
-    """
-    Retorne la suma de la segunda columna.
-
+    """    Retorne la suma de la segunda columna.
     Rta/
     214
-
     """
-    return
+    import csv
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=list(datos)
+    suma=0
+    for num in columns:
+        suma+= int(num[1])
+
+    return suma
+
 
 
 def pregunta_02():
@@ -39,7 +42,25 @@ def pregunta_02():
     ]
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[0]
+        string = texto.split()
+        for term in string:
+            lista_tuplas.append((term,1))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = [(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+
+    return result
 
 
 def pregunta_03():
@@ -57,7 +78,26 @@ def pregunta_03():
     ]
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[0]
+        string = texto.split()
+        colsuma= int(clave[1])
+        for term in string:
+            lista_tuplas.append((term,colsuma))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = [(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+
+    return result
 
 
 def pregunta_04():
@@ -82,7 +122,26 @@ def pregunta_04():
     ]
 
     """
-    return
+
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[2]
+        string = texto[5:7].split()
+        for term in string:
+            lista_tuplas.append((term,1))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = [(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+    
+    return result
 
 
 def pregunta_05():
@@ -100,7 +159,33 @@ def pregunta_05():
     ]
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+            texto = clave[0]
+            string = texto.split()
+            colsuma= int(clave[1])
+            for term in string:
+                lista_tuplas.append((term,colsuma))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+
+    resultmax = [(k, max([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+    resultmin = [(k, min([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+
+    tup0=[x[0] for x in resultmax]
+    tup1=[x[1] for x in resultmax]
+    tup2=[x[1] for x in resultmin]
+    result= list(zip(tup0, tup1,tup2))
+
+    return result
 
 
 def pregunta_06():
@@ -122,10 +207,39 @@ def pregunta_06():
         ("hhh", 0, 9),
         ("iii", 0, 9),
         ("jjj", 5, 17),
-    ]
+    ]   
 
     """
-    return
+
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+            texto = clave[4]
+            string = texto.split(",")
+            for term in string:
+                lista_tuplas.append((term[:3],int(term[4:])))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+
+
+    resultmax = [(k, max([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+    resultmin = [(k, min([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+
+    tup0=[x[0] for x in resultmax]
+    tup1=[x[1] for x in resultmin]
+    tup2=[x[1] for x in resultmax]
+
+    result= list(zip(tup0, tup1,tup2))
+    
+    return result
+
 
 
 def pregunta_07():
@@ -149,7 +263,27 @@ def pregunta_07():
     ]
 
     """
-    return
+
+    import csv
+    from itertools import groupby
+
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+        lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[1]
+        string = texto.split()
+        letras = clave[0]
+        for term in string:
+            lista_tuplas.append((int(term), letras))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = [(k, ([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])]
+    return result
+
 
 
 def pregunta_08():
@@ -174,7 +308,27 @@ def pregunta_08():
     ]
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[1]
+        string = texto.split()
+        letras = clave[0]
+        for term in string:
+            lista_tuplas.append((int(term), letras))
+            lista_tuplas1 = sorted(list(set(lista_tuplas)))
+
+    lista_tuplas1 = sorted(lista_tuplas1, key=lambda termino : termino[0])
+    result = [(k, ([e[1] for e in g])) for k, g in groupby(lista_tuplas1, lambda x:x[0])]
+    return result
+    
 
 
 def pregunta_09():
@@ -197,7 +351,25 @@ def pregunta_09():
     }
 
     """
-    return
+
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+            texto = clave[4]
+            string = texto.split(",")
+            for term in string:
+                lista_tuplas.append((term[:3],1))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = dict([(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])])
+    return result
 
 
 def pregunta_10():
@@ -218,7 +390,25 @@ def pregunta_10():
 
 
     """
-    return
+
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+            texto = clave[0]
+            string = texto.split()
+            column4=len(clave[3].split(","))
+            column5=len(clave[4].split(","))
+            for term in string:
+                lista_tuplas.append((term,column4,column5))
+
+    return lista_tuplas
 
 
 def pregunta_11():
@@ -235,11 +425,31 @@ def pregunta_11():
         "e": 86,
         "f": 134,
         "g": 35,
-    }
+    }  
 
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[3]
+        string = texto.split(",")
+        columna2=clave[1]
+        for term in columna2:
+            for term2 in string:
+                lista_tuplas.append((term2,int(term)))
+        
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = dict([(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])])
+    
+    return result
 
 
 def pregunta_12():
@@ -257,4 +467,24 @@ def pregunta_12():
     }
 
     """
-    return
+    import csv
+    from itertools import groupby
+    
+    with open("data.csv", newline='') as f:
+        datos=csv.reader(f,delimiter="\t")
+        columns=tuple(datos)
+
+    lista_tuplas = []
+
+    for clave in columns:
+        texto = clave[4]
+        string = texto.split(",")
+        columna1=clave[0]
+        for term in columna1:
+            for term2 in string:
+                lista_tuplas.append((term,int(term2[4:])))
+
+    lista_tuplas = sorted(lista_tuplas, key=lambda termino : termino[0])
+    result = dict([(k, sum([e[1] for e in g])) for k, g in groupby(lista_tuplas, lambda x:x[0])])
+    
+    return result
